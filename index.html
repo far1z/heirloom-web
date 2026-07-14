@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Heirloom — Bitcoin inheritance without custodians</title>
+  <meta name="description" content="Heirloom is an open-source, non-custodial iOS Bitcoin wallet that passes your coins to your heir using on-chain timelocks. It works even if we disappear." />
+  <meta name="theme-color" content="#0c0a08" />
+  <meta property="og:title" content="Heirloom — Bitcoin inheritance without custodians" />
+  <meta property="og:description" content="A 2-key Bitcoin wallet where your heir can only inherit after months of your inactivity. Enforced by the Bitcoin network itself, not by us." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230c0a08'/%3E%3Cpath d='M16 6l8 4.5v6c0 5-3.4 8-8 9.5-4.6-1.5-8-4.5-8-9.5v-6L16 6z' fill='none' stroke='%23F7931A' stroke-width='1.6'/%3E%3Cpath d='M13.2 16.5h5.6M16 13.7v5.6' stroke='%23F7931A' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- ───────────────────────── NAV ───────────────────────── -->
+  <header class="nav">
+    <a class="nav__brand" href="#top" aria-label="Heirloom home">
+      <svg class="nav__mark" viewBox="0 0 32 32" width="26" height="26" aria-hidden="true">
+        <path d="M16 4l10 5.6v7.4c0 6.3-4.3 10-10 12-5.7-2-10-5.7-10-12V9.6L16 4z" fill="none" stroke="currentColor" stroke-width="1.4"/>
+        <path d="M12 16.5h8M16 12.5v8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+      </svg>
+      <span>Heirloom</span>
+    </a>
+    <nav class="nav__links" aria-label="Primary">
+      <a href="#how">How it works</a>
+      <a href="#plans">Plans</a>
+      <a href="#trust">Trust model</a>
+      <a href="https://github.com/far1z/heirloom-ios" class="nav__code" rel="noopener">Source</a>
+    </nav>
+    <a href="#waitlist" class="btn btn--sm">Get the app</a>
+  </header>
+
+  <main id="top">
+    <!-- ───────────────────────── HERO ───────────────────────── -->
+    <section class="hero">
+      <div class="hero__inner">
+        <p class="eyebrow reveal">Non-custodial Bitcoin inheritance · iOS</p>
+        <h1 class="hero__title reveal" style="--d:1">
+          The coins outlive<br>the keys.
+        </h1>
+        <p class="hero__lede reveal" style="--d:2">
+          Heirloom is an open-source iOS wallet that hands your Bitcoin to your
+          heir if you ever stop showing up — using a timelock enforced by the
+          Bitcoin network itself. No custodian. No company holding the keys.
+          It works even if we disappear.
+        </p>
+        <div class="hero__cta reveal" style="--d:3">
+          <a href="#waitlist" class="btn">Join the waitlist</a>
+          <a href="#how" class="btn btn--ghost">See how it works</a>
+        </div>
+        <ul class="hero__facts reveal" style="--d:4">
+          <li><strong>2 keys</strong>, one timelock</li>
+          <li><strong>You</strong> spend anytime</li>
+          <li><strong>They</strong> inherit only after silence</li>
+        </ul>
+      </div>
+
+      <!-- Vault / hourglass motif -->
+      <div class="hero__art reveal" style="--d:3" aria-hidden="true">
+        <svg viewBox="0 0 360 420" class="vault">
+          <defs>
+            <radialGradient id="glow" cx="50%" cy="38%" r="60%">
+              <stop offset="0%" stop-color="var(--accent)" stop-opacity="0.16"/>
+              <stop offset="100%" stop-color="var(--accent)" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <rect width="360" height="420" fill="url(#glow)"/>
+          <!-- shield -->
+          <path class="vault__shield" d="M180 44l118 62v92c0 78-52 122-118 148-66-26-118-70-118-148v-92L180 44z"
+                fill="none" stroke="var(--hairline-strong)" stroke-width="1.5"/>
+          <path class="vault__shield2" d="M180 78l92 48v74c0 62-40 96-92 116-52-20-92-54-92-116v-74L180 78z"
+                fill="none" stroke="var(--hairline)" stroke-width="1"/>
+          <!-- hourglass -->
+          <g transform="translate(180 210)">
+            <path d="M-46 -70h92l-42 68 42 68h-92l42-68z" fill="none" stroke="var(--accent)" stroke-width="1.6"/>
+            <path class="sand-top" d="M-30 -60h60l-28 44z" fill="var(--accent)" opacity="0.85"/>
+            <path class="sand-bot" d="M-14 58h28l-14-22z" fill="var(--accent)" opacity="0.85"/>
+            <line class="sand-stream" x1="0" y1="-14" x2="0" y2="30" stroke="var(--accent)" stroke-width="1.4" stroke-dasharray="2 5" stroke-linecap="round"/>
+          </g>
+          <!-- ₿ -->
+          <text x="180" y="360" text-anchor="middle" class="vault__btc">₿</text>
+        </svg>
+      </div>
+    </section>
+
+    <!-- ───────────────────────── MARQUEE STRIP ───────────────────────── -->
+    <div class="strip" aria-hidden="true">
+      <div class="strip__track">
+        <span>OPEN SOURCE</span><span class="dot">✦</span>
+        <span>KEYS NEVER LEAVE YOUR DEVICE</span><span class="dot">✦</span>
+        <span>ON-CHAIN TIMELOCK</span><span class="dot">✦</span>
+        <span>NO CUSTODIAN</span><span class="dot">✦</span>
+        <span>WORKS IF WE DISAPPEAR</span><span class="dot">✦</span>
+        <span>OPEN SOURCE</span><span class="dot">✦</span>
+        <span>KEYS NEVER LEAVE YOUR DEVICE</span><span class="dot">✦</span>
+        <span>ON-CHAIN TIMELOCK</span><span class="dot">✦</span>
+        <span>NO CUSTODIAN</span><span class="dot">✦</span>
+        <span>WORKS IF WE DISAPPEAR</span><span class="dot">✦</span>
+      </div>
+    </div>
+
+    <!-- ───────────────────────── HOW IT WORKS ───────────────────────── -->
+    <section id="how" class="section how">
+      <div class="section__head">
+        <span class="section__num">01</span>
+        <h2 class="section__title">A dead man's switch, written into Bitcoin.</h2>
+        <p class="section__intro">
+          Your wallet is guarded by two keys and a clock. As long as you're
+          active, only you can move the money. If you go quiet for months, the
+          second key wakes up — and your heir can finally claim what's theirs.
+          The rule lives on the blockchain, so no one has to be trusted to
+          enforce it.
+        </p>
+      </div>
+
+      <!-- Diagram -->
+      <figure class="diagram">
+        <svg viewBox="0 0 900 300" role="img" aria-label="Timeline showing the owner key active while heartbeats reset a timelock, and the heir key unlocking only after a long period of inactivity.">
+          <!-- baseline -->
+          <line x1="60" y1="150" x2="840" y2="150" stroke="var(--hairline-strong)" stroke-width="1.5"/>
+          <!-- heartbeats -->
+          <g class="dg-beats" font-size="12" fill="var(--muted)" text-anchor="middle">
+            <g transform="translate(150 150)"><line class="beat" x1="0" y1="-8" x2="0" y2="8" stroke="var(--accent)" stroke-width="2"/><text y="-20">heartbeat</text></g>
+            <g transform="translate(300 150)"><line class="beat" x1="0" y1="-8" x2="0" y2="8" stroke="var(--accent)" stroke-width="2"/><text y="-20">heartbeat</text></g>
+            <g transform="translate(450 150)"><line class="beat" x1="0" y1="-8" x2="0" y2="8" stroke="var(--accent)" stroke-width="2"/><text y="-20">heartbeat</text></g>
+          </g>
+          <!-- owner window -->
+          <text x="150" y="205" font-size="12.5" fill="var(--fg)" text-anchor="start">Owner key — spend anytime →</text>
+          <!-- silence gap -->
+          <path d="M450 150 H770" stroke="var(--accent)" stroke-width="2" stroke-dasharray="3 6"/>
+          <text x="610" y="120" font-size="12.5" fill="var(--accent)" text-anchor="middle">months of silence…</text>
+          <!-- unlock -->
+          <circle cx="770" cy="150" r="7" fill="var(--accent)"/>
+          <g transform="translate(770 150)">
+            <text y="-22" font-size="12.5" fill="var(--fg)" text-anchor="middle">timelock expires</text>
+            <text y="42" font-size="12.5" fill="var(--fg)" text-anchor="middle">Heir key unlocks</text>
+          </g>
+          <!-- start marker -->
+          <circle cx="60" cy="150" r="5" fill="var(--fg)"/>
+          <text x="60" y="185" font-size="12" fill="var(--muted)" text-anchor="middle">setup</text>
+        </svg>
+        <figcaption>Every heartbeat pushes the heir's unlock date further into the future. Stop signing, and the clock finally runs out.</figcaption>
+      </figure>
+
+      <!-- Steps -->
+      <ol class="steps">
+        <li class="step">
+          <span class="step__key">Key 1</span>
+          <h3>You hold the owner key</h3>
+          <p>It lives only on your iPhone. You can send, receive, and spend your Bitcoin at any moment — exactly like a normal self-custody wallet.</p>
+        </li>
+        <li class="step">
+          <span class="step__key step__key--heir">Key 2</span>
+          <h3>Your heir holds a waiting key</h3>
+          <p>Their key is powerless at first. It can only spend after a relative timelock — a stretch of your inactivity you choose: 3, 6, 9, 12, or ~15 months.</p>
+        </li>
+        <li class="step">
+          <span class="step__key step__key--beat">Heartbeat</span>
+          <h3>You reset the clock</h3>
+          <p>A quick “heartbeat” transaction, on your schedule, refreshes the timelock. As long as you keep checking in, the heir key never activates.</p>
+        </li>
+        <li class="step">
+          <span class="step__key step__key--chain">On-chain</span>
+          <h3>Bitcoin enforces it</h3>
+          <p>The whole arrangement is a Miniscript policy on the blockchain. The network — not a company, court, or server — decides when the heir may spend.</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- ───────────────────────── PLANS ───────────────────────── -->
+    <section id="plans" class="section plans">
+      <div class="section__head">
+        <span class="section__num">02</span>
+        <h2 class="section__title">Free forever. Pro if you'd rather not remember.</h2>
+        <p class="section__intro">
+          The wallet is fully self-managed and free. Pro is a convenience layer —
+          reminders and a managed heartbeat service so you never miss a check-in.
+          It can never touch, freeze, or move your coins. Ever.
+        </p>
+      </div>
+
+      <div class="plan-grid">
+        <article class="plan">
+          <header class="plan__head">
+            <h3>Free</h3>
+            <p class="plan__price">$0<span>/ always</span></p>
+            <p class="plan__tag">Full self-custody. No account needed.</p>
+          </header>
+          <ul class="plan__list">
+            <li>Complete 2-key inheritance wallet</li>
+            <li>Owner + heir keys generated on-device</li>
+            <li>Choose your timelock (3–15 months)</li>
+            <li>Sign your own heartbeats, manually</li>
+            <li>Open-source, verifiable, yours</li>
+          </ul>
+          <a href="#waitlist" class="btn btn--ghost plan__cta">Start free</a>
+        </article>
+
+        <article class="plan plan--pro">
+          <span class="plan__ribbon">Optional convenience</span>
+          <header class="plan__head">
+            <h3>Pro</h3>
+            <p class="plan__price">Managed<span>heartbeat</span></p>
+            <p class="plan__tag">Reminders so the clock never surprises you.</p>
+          </header>
+          <ul class="plan__list">
+            <li><strong>Everything in Free</strong>, plus:</li>
+            <li>Automatic heartbeat reminders</li>
+            <li>Managed check-in scheduling &amp; alerts</li>
+            <li>Heir onboarding assistance</li>
+            <li class="plan__never">Never custodial · never holds keys · never able to move funds</li>
+          </ul>
+          <a href="#waitlist" class="btn plan__cta">Join for Pro</a>
+        </article>
+      </div>
+      <p class="plans__foot">Pro is a reminder service, not a vault. If Pro shuts down tomorrow, your inheritance plan keeps working on-chain — unchanged.</p>
+    </section>
+
+    <!-- ───────────────────────── TRUST ───────────────────────── -->
+    <section id="trust" class="section trust">
+      <div class="section__head">
+        <span class="section__num">03</span>
+        <h2 class="section__title">The trust model, stated plainly.</h2>
+      </div>
+
+      <div class="trust-grid">
+        <div class="trust__card">
+          <h3>Non-custodial by construction</h3>
+          <p>We never hold your keys or your coins. There's no balance for us to lose, freeze, or hand over.</p>
+        </div>
+        <div class="trust__card">
+          <h3>Keys never leave your device</h3>
+          <p>Both keys are generated and stored on-device. Nothing sensitive is transmitted to us — because there's no server that needs it.</p>
+        </div>
+        <div class="trust__card">
+          <h3>Enforced on-chain</h3>
+          <p>The timelock is a Bitcoin Miniscript policy. The network enforces the inheritance rules, not our infrastructure.</p>
+        </div>
+        <div class="trust__card">
+          <h3>Works even if we disappear</h3>
+          <p>The spending conditions live on the blockchain. Your heir can recover funds with the wallet descriptor alone — no Heirloom required.</p>
+        </div>
+        <div class="trust__card trust__card--wide">
+          <h3>Open source, so you don't have to take our word for it</h3>
+          <p>Every line is public and MIT-licensed. Read it, build it, fork it. Trust the code, not the company.</p>
+          <a class="link-arrow" href="https://github.com/far1z/heirloom-ios" rel="noopener">github.com/far1z/heirloom-ios →</a>
+        </div>
+      </div>
+
+      <!-- Honesty box -->
+      <aside class="honesty" role="note">
+        <h3><span class="honesty__badge">Where we are today</span> Full transparency</h3>
+        <ul>
+          <li><strong>Signet only.</strong> Heirloom currently runs on Bitcoin's signet test network. Mainnet is not supported yet — please don't store real Bitcoin you can't afford to lose.</li>
+          <li><strong>Not yet independently audited.</strong> The design uses standard, well-understood Bitcoin primitives, but it has not had a third-party security audit. Treat it as early software.</li>
+          <li><strong>Verify before you trust.</strong> The whole point is that you don't need to trust us — so please read the code before relying on it.</li>
+        </ul>
+      </aside>
+    </section>
+
+    <!-- ───────────────────────── SOURCE ───────────────────────── -->
+    <section class="source">
+      <div class="source__inner">
+        <p class="source__kicker">Open source</p>
+        <p class="source__line">Read the code — it works even if we disappear.</p>
+        <a class="btn btn--lg" href="https://github.com/far1z/heirloom-ios" rel="noopener">
+          <svg viewBox="0 0 16 16" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+          Read the source
+        </a>
+      </div>
+    </section>
+
+    <!-- ───────────────────────── WAITLIST ───────────────────────── -->
+    <section id="waitlist" class="section waitlist">
+      <div class="waitlist__card">
+        <h2 class="waitlist__title">Get the app</h2>
+        <p class="waitlist__intro">
+          Heirloom isn't in the App Store yet. Leave your email and we'll reach
+          out when the signet beta opens. This is just a waitlist — no account,
+          no wallet, nothing to secure here.
+        </p>
+
+        <form id="waitlist-form" class="wl-form" novalidate>
+          <label class="sr-only" for="email">Email address</label>
+          <input id="email" name="email" type="email" inputmode="email"
+                 autocomplete="email" placeholder="you@example.com" required />
+          <button type="submit" class="btn">Notify me</button>
+        </form>
+        <p class="wl-note" id="wl-note">
+          We'll email you once, when the beta is ready. No spam, no sharing.
+          Prefer not to use a form? <a href="mailto:hello@heirloomcrypto.com?subject=Heirloom%20waitlist&body=Please%20add%20me%20to%20the%20Heirloom%20signet%20beta%20waitlist.">Email us directly →</a>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <!-- ───────────────────────── FOOTER ───────────────────────── -->
+  <footer class="footer">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a class="nav__brand" href="#top">
+          <svg class="nav__mark" viewBox="0 0 32 32" width="24" height="24" aria-hidden="true">
+            <path d="M16 4l10 5.6v7.4c0 6.3-4.3 10-10 12-5.7-2-10-5.7-10-12V9.6L16 4z" fill="none" stroke="currentColor" stroke-width="1.4"/>
+            <path d="M12 16.5h8M16 12.5v8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+          </svg>
+          <span>Heirloom</span>
+        </a>
+        <p class="footer__tag">Bitcoin inheritance without custodians.</p>
+      </div>
+
+      <nav class="footer__col" aria-label="Product">
+        <h4>Product</h4>
+        <a href="#how">How it works</a>
+        <a href="#plans">Free vs Pro</a>
+        <a href="#trust">Trust model</a>
+        <a href="#waitlist">Waitlist</a>
+      </nav>
+
+      <nav class="footer__col" aria-label="Code">
+        <h4>Open source</h4>
+        <a href="https://github.com/far1z/heirloom-ios" rel="noopener">iOS app repo</a>
+        <a href="https://github.com/far1z/heirloom-web" rel="noopener">This website</a>
+        <a href="https://github.com/far1z/heirloom-ios/blob/main/LICENSE" rel="noopener">MIT License</a>
+      </nav>
+
+      <div class="footer__col">
+        <h4>Security</h4>
+        <a href="mailto:security@heirloomcrypto.com">security@heirloomcrypto.com</a>
+        <p class="footer__disclose">Found a vulnerability? Please disclose it responsibly to the address above.</p>
+      </div>
+    </div>
+
+    <div class="footer__base">
+      <p>© 2026 HeirloomCrypto contributors · MIT licensed</p>
+      <p class="footer__warn">Signet only · Not audited · Not for mainnet funds yet</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
